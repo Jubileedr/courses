@@ -1,28 +1,32 @@
 #include <stdio.h>
-#define INTEREST_TIME 12.0
-
-int main(void) 
+int main(void)
 {
-   float loanAmt, interest, monthlyAmt, interestPmt;
-   int numPayments;
+  float loanAmt,interest,monthlyPmt,monthlyInt,balance;
+  int numberOpmts;
 
-   printf("Enter amount of loan: ");
-   scanf("%f", &loanAmt);
-   printf("Enter interest rate: ");
-   scanf("%f", &interest);
-   interest /= 100.0;
+  printf("Enter loan amount:");
+  scanf("%f",&loanAmt);
+  printf("Enter interest rate:");
+  scanf("%f",&interest);
+  printf("Enter monthly payment:");
+  scanf("%f",&monthlyPmt);
+  printf("Enter number of payments:");
+  scanf("%d",&numberOpmts);
 
-   printf("Enter the number of payments: ");
-   scanf("%d", &numPayments);
+ monthlyInt=(interest/100)/12;
 
-   float totalInterest = loanAmt * interest / INTEREST_TIME * numPayments;
-   loanAmt += totalInterest;
-   monthlyAmt = loanAmt / numPayments;
-
-   printf("Monthly payments: $%0.2f\n", monthlyAmt);
-   for (int i = 1; i <= numPayments; i++) {
-      printf("Balance remaining after payment %d: $%.2f\n", i, (loanAmt -= monthlyAmt));
+ for(int i=0;i<numberOpmts;++i)
+ {
+   balance=(loanAmt-monthlyPmt)+monthlyInt*loanAmt;
+  
+   if(i==(numberOpmts-1))
+   {
+    printf("Balance remaining after %d payments is :%.2f\n",numberOpmts,balance);
+    break;
    }
+   loanAmt=balance;
+ }
 
-   return 0;
+ 
+ return 0;
 }
